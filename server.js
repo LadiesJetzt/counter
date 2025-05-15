@@ -4,7 +4,7 @@ const path = require('path');
 const cors = require('cors'); // Für Cross-Origin Anfragen
 
 const app = express();
-const PORT = 3002;
+const PORT = 443;
 const COUNTER_FILE = path.join(__dirname, 'counter.json');
 
 // CORS aktivieren, damit Ihre Hauptwebsite auf diesen Service zugreifen kann
@@ -18,6 +18,7 @@ if (!fs.existsSync(COUNTER_FILE)) {
 // Route zum Abrufen des Zählerstands
 app.get('/counter', (req, res) => {
   try {
+    console.log("endpunkt counter")
     const data = JSON.parse(fs.readFileSync(COUNTER_FILE, 'utf8'));
     res.json(data);
   } catch (error) {
@@ -29,6 +30,7 @@ app.get('/counter', (req, res) => {
 // Route zum Erhöhen des Zählers
 app.get('/increment', (req, res) => {
   try {
+    console.log("endpunkt increment")
     const data = JSON.parse(fs.readFileSync(COUNTER_FILE, 'utf8'));
     data.count += 1;
     fs.writeFileSync(COUNTER_FILE, JSON.stringify(data));
